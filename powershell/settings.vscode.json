@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.shell.linux": "/usr/bin/pwsh",
+    "terminal.integrated.shellArgs.linux": ["-NoLogo"],
+
+    "powershell.powerShellExePath": "/usr/bin/pwsh"
+}
