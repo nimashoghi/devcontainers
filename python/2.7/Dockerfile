@@ -6,15 +6,6 @@ COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 # Install git, process tools
 RUN apt-get update && apt-get -y install git procps
 
-# Install PowerShell and set PowerShell as default shell
-RUN apt-get update \
-    && apt-get install -y curl gnupg apt-transport-https \
-    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list' \
-    && apt-get update \
-    && apt-get install -y powershell \
-    && chsh -s /usr/bin/pwsh root
-
 # Install poetry
 RUN pip install --pre poetry \
     && mkdir /root/.config \

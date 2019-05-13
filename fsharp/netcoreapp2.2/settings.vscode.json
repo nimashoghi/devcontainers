@@ -1,7 +1,4 @@
 {
-    "terminal.integrated.shell.linux": "/usr/bin/pwsh",
-    "terminal.integrated.shellArgs.linux": ["-NoLogo"],
-
     "FSharp.fsiFilePath": "fsi",
     "FSharp.fsacRuntime": "netcore"
 }
