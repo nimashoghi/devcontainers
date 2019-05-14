@@ -1,4 +1,8 @@
 {
     "FSharp.fsiFilePath": "fsi",
-    "FSharp.fsacRuntime": "netcore"
+    "FSharp.fsacRuntime": "netcore",
+
+    "remote.extensionKind": {
+        "peterjausovec.vscode-docker": "workspace"
+    }
 }
