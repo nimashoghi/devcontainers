@@ -1,1 +1,1 @@
-FROM nimashoghi/node:lts
+FROM nimashoghi/node:current
