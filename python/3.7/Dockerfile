@@ -17,7 +17,26 @@ RUN apt-get install -y apt-transport-https ca-certificates curl gnupg-agent soft
 RUN pip install --pre poetry \
     && mkdir /root/.config \
     && mkdir /root/.config/pypoetry \
-    && touch /root/.config/pypoetry/config.toml
+    && touch /root/.config/pypoetry/config.toml \
+    && poetry config settings.virtualenvs.create false
+
+# Install Jupyter
+RUN pip install jupyter
+
+# Install pylint
+RUN pip install pylint
+
+# Install black
+RUN pip install --pre black
+
+# Install mypy
+RUN pip install mypy
+
+# Install bandit
+RUN pip install bandit
+
+# Install bandit
+RUN pip install flake8
 
 RUN mkdir /workspace
 WORKDIR /workspace
