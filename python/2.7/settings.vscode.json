@@ -4,9 +4,5 @@
     "python.formatting.provider": "black",
 
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
-
-    "remote.extensionKind": {
-        "peterjausovec.vscode-docker": "workspace"
-    }
+    "python.linting.enabled": true
 }

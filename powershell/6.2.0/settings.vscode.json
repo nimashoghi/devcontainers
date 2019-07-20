@@ -1,7 +1,3 @@
 {
-    "powershell.powerShellExePath": "/usr/bin/pwsh",
-
-    "remote.extensionKind": {
-        "peterjausovec.vscode-docker": "workspace"
-    }
+    "powershell.powerShellExePath": "/usr/bin/pwsh"
 }
