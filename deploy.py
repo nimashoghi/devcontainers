@@ -32,7 +32,7 @@ def process_image(info: Tuple[str, str, str]):
     username = os.environ["DOCKER_USERNAME"]
     travis_tag = os.environ["TRAVIS_TAG"]
 
-    docker_file_path = os.path(path, "Dockerfile")
+    docker_file_path = os.path.join(path, "Dockerfile")
     full_image_name = f"{username}/{image}:{tag}-{travis_tag}"
     short_image_name = f"{username}/{image}:{tag}"
     os.system(
@@ -56,12 +56,11 @@ def docker_login(username: str, password: str):
 def main():
     username = os.environ["DOCKER_USERNAME"]
     password = os.environ["DOCKER_PASSWORD"]
-    travis_tag = os.environ["TRAVIS_TAG"]
 
     with docker_login(username, password):
         pool = mp.Pool(5)
         # image, tag, path
-        pool.map(process_image, get_images("."))
+        pool.imap_unordered(process_image, get_images("."))
 
 
 main()
