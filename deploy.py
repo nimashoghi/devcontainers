@@ -2,6 +2,7 @@ import multiprocessing as mp
 import os
 import os.path
 from contextlib import contextmanager
+from typing import Tuple
 
 
 def get_directories(original_path: str):
@@ -26,7 +27,11 @@ def get_images(path: str):
             yield image, tag, path
 
 
-def process_image(image: str, tag: str, path: str, username: str, travis_tag: str):
+def process_image(info: Tuple[str, str, str]):
+    image, tag, path = info
+    username = os.environ["DOCKER_USERNAME"]
+    travis_tag = os.environ["TRAVIS_TAG"]
+
     docker_file_path = os.path(path, "Dockerfile")
     full_image_name = f"{username}/{image}:{tag}-{travis_tag}"
     short_image_name = f"{username}/{image}:{tag}"
@@ -56,10 +61,7 @@ def main():
     with docker_login(username, password):
         pool = mp.Pool(5)
         # image, tag, path
-        pool.map(
-            lambda info: process_image(info[0], info[1], info[2], username, travis_tag),
-            get_images("."),
-        )
+        pool.map(process_image, get_images("."))
 
 
 main()
