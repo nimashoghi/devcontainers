@@ -4,6 +4,8 @@ services:
     - docker
 python:
     - "3.7"
+install:
+    - pip install -r requirements.txt
 # Docker release
 deploy:
     - skip_cleanup: true

@@ -60,3 +60,6 @@ def main():
             lambda info: process_image(info[0], info[1], info[2], username, travis_tag),
             get_images("."),
         )
+
+
+main()
