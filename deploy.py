@@ -58,9 +58,10 @@ def main():
     password = os.environ["DOCKER_PASSWORD"]
 
     with docker_login(username, password):
-        pool = mp.Pool(5)
-        # image, tag, path
-        pool.imap_unordered(process_image, get_images("."))
+        with mp.Pool(5) as pool:
+            # image, tag, path
+            pool.imap_unordered(process_image, get_images("."))
 
 
-main()
+if __name__ == "__main__":
+    main()
