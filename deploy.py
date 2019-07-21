@@ -13,22 +13,20 @@ def get_directories(original_path: str):
         yield path
 
 
-def get_tags(path: str, directory: str):
-    for tag in get_directories(os.path.join(path, directory)):
-        yield tag, os.path.join(path, directory, tag)
+def get_tags(image_path: str):
+    for tag in get_directories(image_path):
+        yield tag, os.path.join(image_path, tag)
 
 
 def get_images(path: str):
-    for image in get_directories("."):
+    for image in get_directories(path):
         if image.startswith("."):
             continue
 
-        for tag, path in get_tags(".", image):
-            yield image, tag, path
+        yield image, os.path.join(path, image)
 
 
-def process_image(info: Tuple[str, str, str]):
-    image, tag, path = info
+def process_image_tag(image: str, tag: str, path: str):
     username = os.environ["DOCKER_USERNAME"]
     travis_tag = os.environ["TRAVIS_TAG"]
 
@@ -42,6 +40,12 @@ def process_image(info: Tuple[str, str, str]):
 
     os.system(f"docker push {full_image_name}")
     os.system(f"docker push {short_image_name}")
+
+
+def process_image(image: str, image_path: str):
+    print(f"Processing {image}")
+    for tag, path in get_tags(image_path):
+        process_image_tag(image, tag, path)
 
 
 @contextmanager
@@ -58,9 +62,9 @@ def main():
     password = os.environ["DOCKER_PASSWORD"]
 
     with docker_login(username, password):
-        with mp.Pool(5) as pool:
+        with mp.Pool(processes=5) as pool:
             # image, tag, path
-            pool.imap_unordered(process_image, get_images("."))
+            pool.starmap(process_image, list(get_images(".")))
 
 
 if __name__ == "__main__":
