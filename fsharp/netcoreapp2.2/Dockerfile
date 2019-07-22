@@ -67,6 +67,6 @@ COPY fsi /root/.dotnet/tools/fsi
 ENV PATH="/root/.dotnet/tools/:${PATH}"
 
 # Clean up
-RUN apt-get autoremove -y \
+RUN apt-get autoremove --purge -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
