@@ -7,7 +7,7 @@ from typing import Tuple
 
 
 def execute(command:str):
-    return subprocess.try_call(command, shell=True)
+    return subprocess.check_call(command, shell=True)
 
 def get_directories(original_path: str):
     for path in os.listdir(original_path):
