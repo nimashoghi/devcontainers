@@ -1,9 +1,13 @@
 import multiprocessing as mp
 import os
 import os.path
+import subprocess
 from contextlib import contextmanager
 from typing import Tuple
 
+
+def execute(command:str):
+    return subprocess.try_call(command, shell=True)
 
 def get_directories(original_path: str):
     for path in os.listdir(original_path):
@@ -33,13 +37,13 @@ def process_image_tag(image: str, tag: str, path: str):
     docker_file_path = os.path.join(path, "Dockerfile")
     full_image_name = f"{username}/{image}:{tag}-{travis_tag}"
     short_image_name = f"{username}/{image}:{tag}"
-    os.system(
+    execute(
         f'docker build --rm -f "{docker_file_path}" -t "{full_image_name}" "{path}"'
     )
-    os.system(f'docker tag "{full_image_name}" "{short_image_name}"')
+    execute(f'docker tag "{full_image_name}" "{short_image_name}"')
 
-    os.system(f"docker push {full_image_name}")
-    os.system(f"docker push {short_image_name}")
+    execute(f"docker push {full_image_name}")
+    execute(f"docker push {short_image_name}")
 
 
 def process_image(image: str, image_path: str):
@@ -51,10 +55,10 @@ def process_image(image: str, image_path: str):
 @contextmanager
 def docker_login(username: str, password: str):
     try:
-        os.system(f"docker login -u {username} -p {password}")
+        execute(f"docker login -u {username} -p {password}")
         yield
     finally:
-        os.system(f"docker logout")
+        execute(f"docker logout")
 
 
 def main():

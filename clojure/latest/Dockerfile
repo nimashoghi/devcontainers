@@ -11,7 +11,7 @@ RUN apt-get update \
 
 # Install git
 RUN apt-get install --yes --no-install-recommends \
-    ca-certificate \
+    ca-certificates \
     gettext \
     libssl-dev \
     libghc-zlib-dev \
