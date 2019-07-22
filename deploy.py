@@ -66,7 +66,7 @@ def main():
     password = os.environ["DOCKER_PASSWORD"]
 
     with docker_login(username, password):
-        with mp.Pool(processes=5) as pool:
+        with mp.Pool(processes=1) as pool:
             # image, tag, path
             pool.starmap(process_image, list(get_images(".")))
 
