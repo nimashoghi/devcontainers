@@ -1,14 +1,13 @@
-ARG GIT_VERSION=2.22.0
 FROM node:current
+ARG GIT_VERSION=2.22.0
 
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils procps 2>&1
+    && apt-get -y install --no-install-recommends apt-utils ca-certificates procps 2>&1
 
 # Install git
 RUN apt-get install --yes --no-install-recommends \
-    ca-certificates \
     gettext \
     libssl-dev \
     libghc-zlib-dev \
@@ -18,10 +17,10 @@ RUN apt-get install --yes --no-install-recommends \
     unzip \
     wget \
     && cd /tmp \
-    && wget https://github.com/git/git/archive/v${GIT_VERSION}.zip \
-    && unzip v${GIT_VERSION}.zip \
+    && wget --no-verbose https://github.com/git/git/archive/v${GIT_VERSION}.zip \
+    && unzip -qq v${GIT_VERSION}.zip \
     && cd git-${GIT_VERSION} \
-    && make prefix=/usr/local all \
+    && make -j prefix=/usr/local all \
     && make prefix=/usr/local install \
     && rm /tmp/v${GIT_VERSION}.zip \
     && rm -rf /tmp/git-${GIT_VERSION} \
@@ -37,7 +36,6 @@ RUN apt-get install --yes --no-install-recommends \
 
 # Fix locale problems
 RUN apt-get install -y --no-install-recommends locales \
-    && rm -rf /var/lib/apt/lists/* \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
