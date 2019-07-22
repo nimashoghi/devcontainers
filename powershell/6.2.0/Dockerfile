@@ -1,3 +1,4 @@
+ARG GIT_VERSION=2.22.0
 FROM debian:stretch
 
 # Copy endpoint specific user settings into container to specify

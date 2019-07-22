@@ -1,3 +1,4 @@
+ARG GIT_VERSION=2.22.0
 FROM mcr.microsoft.com/dotnet/core/sdk:latest
 
 # Copy endpoint specific user settings into container to specify

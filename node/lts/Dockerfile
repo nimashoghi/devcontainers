@@ -1,3 +1,4 @@
+ARG GIT_VERSION=2.22.0
 FROM node:lts
 
 # Configure apt

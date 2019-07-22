@@ -1,3 +1,4 @@
+ARG GIT_VERSION=2.22.0
 FROM debian:stretch
 
 # Copy default endpoint specific user settings overrides into container to specify Python path
