@@ -1,4 +1,3 @@
-import multiprocessing as mp
 import os
 import os.path
 import subprocess
@@ -47,7 +46,7 @@ def process_image_tag(image: str, tag: str, path: str):
 
 
 def process_image(image: str, image_path: str):
-    print(f"Processing {image}")
+    print(f"Processing image {image}")
     for tag, path in get_tags(image_path):
         process_image_tag(image, tag, path)
 
@@ -66,9 +65,8 @@ def main():
     password = os.environ["DOCKER_PASSWORD"]
 
     with docker_login(username, password):
-        with mp.Pool(processes=1) as pool:
-            # image, tag, path
-            pool.starmap(process_image, list(get_images(".")))
+        for image, image_path in get_images("."):
+            process_image(image, image_path)
 
 
 if __name__ == "__main__":
