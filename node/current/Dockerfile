@@ -4,7 +4,7 @@ ARG GIT_VERSION=2.22.0
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils ca-certificates procps 2>&1
+    && apt-get -y install --no-install-recommends apt-utils ca-certificates procps
 
 # Install git
 RUN apt-get install --yes --no-install-recommends \

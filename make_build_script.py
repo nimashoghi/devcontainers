@@ -1,12 +1,12 @@
 import os
 import os.path
-import subprocess
 from contextlib import contextmanager
-from typing import Tuple
 
 
-def execute(command:str):
-    return subprocess.check_call(command, shell=True)
+def execute(command: str):
+    with open("./build.sh", "a") as f:
+        f.write(f"{command}\n")
+
 
 def get_directories(original_path: str):
     for path in os.listdir(original_path):
@@ -30,12 +30,9 @@ def get_images(path: str):
 
 
 def process_image_tag(image: str, tag: str, path: str):
-    username = os.environ["DOCKER_USERNAME"]
-    travis_tag = os.environ["TRAVIS_TAG"]
-
     docker_file_path = os.path.join(path, "Dockerfile")
-    full_image_name = f"{username}/{image}:{tag}-{travis_tag}"
-    short_image_name = f"{username}/{image}:{tag}"
+    full_image_name = f"$DOCKER_USERNAME/{image}:{tag}-$TRAVIS_TAG"
+    short_image_name = f"$DOCKER_USERNAME/{image}:{tag}"
     execute(
         f'docker build --rm -f "{docker_file_path}" -t "{full_image_name}" "{path}"'
     )
@@ -46,9 +43,11 @@ def process_image_tag(image: str, tag: str, path: str):
 
 
 def process_image(image: str, image_path: str):
+    execute(f"# {image}")
     print(f"Processing image {image}")
     for tag, path in get_tags(image_path):
         process_image_tag(image, tag, path)
+    execute("")
 
 
 @contextmanager
@@ -61,10 +60,12 @@ def docker_login(username: str, password: str):
 
 
 def main():
-    username = os.environ["DOCKER_USERNAME"]
-    password = os.environ["DOCKER_PASSWORD"]
+    try:
+        os.remove("./build.sh")
+    except BaseException:
+        pass
 
-    with docker_login(username, password):
+    with docker_login("$DOCKER_USERNAME", "$DOCKER_PASSWORD"):
         for image, image_path in get_images("."):
             process_image(image, image_path)
 
