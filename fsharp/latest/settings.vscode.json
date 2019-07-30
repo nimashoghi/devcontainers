@@ -1,4 +1,6 @@
 {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.shellArgs.linux": [],
     "FSharp.fsiFilePath": "fsi",
     "FSharp.fsacRuntime": "netcore"
 }

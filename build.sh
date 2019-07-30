@@ -35,16 +35,6 @@ docker tag "$DOCKER_USERNAME/node:lts-$TRAVIS_TAG" "$DOCKER_USERNAME/node:lts"
 docker push $DOCKER_USERNAME/node:lts-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:lts
 
-# powershell
-docker build --rm -f "./powershell/6.2.0/Dockerfile" -t "$DOCKER_USERNAME/powershell:6.2.0-$TRAVIS_TAG" "./powershell/6.2.0"
-docker tag "$DOCKER_USERNAME/powershell:6.2.0-$TRAVIS_TAG" "$DOCKER_USERNAME/powershell:6.2.0"
-docker push $DOCKER_USERNAME/powershell:6.2.0-$TRAVIS_TAG
-docker push $DOCKER_USERNAME/powershell:6.2.0
-docker build --rm -f "./powershell/latest/Dockerfile" -t "$DOCKER_USERNAME/powershell:latest-$TRAVIS_TAG" "./powershell/latest"
-docker tag "$DOCKER_USERNAME/powershell:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/powershell:latest"
-docker push $DOCKER_USERNAME/powershell:latest-$TRAVIS_TAG
-docker push $DOCKER_USERNAME/powershell:latest
-
 # python
 docker build --rm -f "./python/2.7/Dockerfile" -t "$DOCKER_USERNAME/python:2.7-$TRAVIS_TAG" "./python/2.7"
 docker tag "$DOCKER_USERNAME/python:2.7-$TRAVIS_TAG" "$DOCKER_USERNAME/python:2.7"

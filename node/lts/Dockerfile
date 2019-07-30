@@ -1,67 +1,24 @@
-FROM node:lts
-ARG GIT_VERSION=2.22.0
+FROM node:lts-alpine
 
-# Configure apt
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils ca-certificates procps 2>&1
+# Copy default endpoint specific user settings overrides into container to specify Python path
+COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
+
+# Configure apt and install necessary libraries
+RUN apk add --no-cache ca-certificates bash bash-doc bash-completion libgcc libstdc++ musl \
+    && echo 'export PS1="\[\e[32m\][\[\e[m\]\[\e[31m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32;47m\]\[\e[m\] \\$ "' > /root/.bashrc
 
 # Install git
-RUN apt-get install --yes --no-install-recommends \
-    gettext \
-    libssl-dev \
-    libghc-zlib-dev \
-    libcurl4-gnutls-dev \
-    libexpat1-dev \
-    make \
-    unzip \
-    wget \
-    && cd /tmp \
-    && wget --no-verbose https://github.com/git/git/archive/v${GIT_VERSION}.zip \
-    && unzip -qq v${GIT_VERSION}.zip \
-    && cd git-${GIT_VERSION} \
-    && make -j prefix=/usr/local all \
-    && make prefix=/usr/local install \
-    && rm /tmp/v${GIT_VERSION}.zip \
-    && rm -rf /tmp/git-${GIT_VERSION} \
-    && apt-get remove --purge --yes --no-install-recommends \
-    gettext \
-    libssl-dev \
-    libghc-zlib-dev \
-    libcurl4-gnutls-dev \
-    libexpat1-dev \
-    make \
-    unzip \
-    wget
-
-# Fix locale problems
-RUN apt-get install -y --no-install-recommends locales \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+RUN apk add --no-cache git
 
 # Install Docker CE CLI
-RUN apt-get install -y apt-transport-https curl gnupg-agent software-properties-common lsb-release \
-    && curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | (OUT=$(apt-key add - 2>&1) || echo $OUT) \
-    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable" \
-    && apt-get update \
-    && apt-get install -y docker-ce-cli
-
-# Remove outdated yarn from /opt and install via package
-# so it can be easily updated via apt-get upgrade yarn
-RUN rm -rf /opt/yarn-* \
-    && rm -f /usr/local/bin/yarn \
-    && rm -f /usr/local/bin/yarnpkg \
-    && apt-get install -y curl apt-transport-https lsb-release \
-    && curl -sS https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/pubkey.gpg | apt-key add - 2>/dev/null \
-    && echo "deb https://dl.yarnpkg.com/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update \
-    && apt-get -y install --no-install-recommends yarn
+RUN apk add --no-cache docker
 
 # Install tslint and typescript
 RUN npm install --global eslint prettier typescript
 
-# Clean up
-RUN apt-get autoremove --purge -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
-ENV DEBIAN_FRONTEND=dialog
+# Workspace
+RUN mkdir /workspace
+WORKDIR /workspace
+
+# Wait forever
+CMD /bin/sh -c "while sleep 1000; do :; done"
