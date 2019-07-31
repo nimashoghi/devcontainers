@@ -26,5 +26,4 @@ RUN mkdir /workspace
 WORKDIR /workspace
 
 # Wait forever
-ENTRYPOINT /bin/bash
-CMD -c "while sleep 1000; do :; done"
+CMD /bin/sh -c "while sleep 1000; do :; done"
