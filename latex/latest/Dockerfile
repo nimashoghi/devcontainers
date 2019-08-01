@@ -12,9 +12,5 @@ RUN apk add --no-cache bash bash-doc bash-completion ca-certificates docker git 
 # Install LaTeX
 RUN apk add --no-cache biber make texlive-full
 
-# Workspace
-RUN mkdir /workspace
-WORKDIR /workspace
-
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

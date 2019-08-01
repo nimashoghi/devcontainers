@@ -12,9 +12,5 @@ RUN apk add --no-cache bash bash-doc bash-completion ca-certificates docker git 
 # Install tslint and typescript
 RUN npm install --global eslint prettier typescript
 
-# Workspace
-RUN mkdir /workspace
-WORKDIR /workspace
-
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

@@ -9,9 +9,5 @@ RUN apk add --no-cache bash bash-doc bash-completion ca-certificates docker git 
     && printf "#!/bin/bash\n\ncode-insiders \$@\n" > /usr/local/bin/code \
     && chmod +x /usr/local/bin/code
 
-# Workspace
-RUN mkdir /workspace
-WORKDIR /workspace
-
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

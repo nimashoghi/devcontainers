@@ -21,9 +21,5 @@ COPY fsi /root/.dotnet/tools/fsi
 # Add dotnet tools to PATH
 ENV PATH="/root/.dotnet/tools/:${PATH}"
 
-# Workspace
-RUN mkdir /workspace
-WORKDIR /workspace
-
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

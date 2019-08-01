@@ -28,9 +28,5 @@ RUN pip install autopep8 bandit jupyter pylint
 # Remove build dependencies
 RUN apk del .build-deps
 
-# Workspace
-RUN mkdir /workspace
-WORKDIR /workspace
-
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"
