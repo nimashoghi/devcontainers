@@ -22,8 +22,8 @@ RUN pip install --pre poetry \
     && touch /root/.config/pypoetry/config.toml \
     && poetry config settings.virtualenvs.create false
 
-# Install autopep8, bandit, jupyter, pylint
-RUN pip install autopep8 bandit jupyter pylint
+# Install autopep8, bandit, jupyter, mypy, pylint
+RUN pip install autopep8 bandit jupyter mypy pylint
 
 # Remove build dependencies
 RUN apk del .build-deps

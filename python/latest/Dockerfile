@@ -22,8 +22,8 @@ RUN pip install --pre poetry \
     && touch /root/.config/pypoetry/config.toml \
     && poetry config settings.virtualenvs.create false
 
-# Install black, bandit, jupyter, pylint
-RUN pip install black bandit jupyter pylint
+# Install black, bandit, jupyter, mypy, pylint
+RUN pip install black bandit jupyter mypy pylint
 
 # Remove build dependencies
 RUN apk del .build-deps
