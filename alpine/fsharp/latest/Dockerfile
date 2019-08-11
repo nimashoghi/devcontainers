@@ -17,6 +17,7 @@ RUN dotnet tool install --global fake-cli
 
 # Add fsi to PATH
 COPY fsi /root/.dotnet/tools/fsi
+RUN chmod +x /root/.dotnet/tools/fsi
 
 # Add dotnet tools to PATH
 ENV PATH="/root/.dotnet/tools/:${PATH}"

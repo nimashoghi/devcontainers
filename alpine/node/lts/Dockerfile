@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-alpine
+FROM node:lts-alpine
 
 # Copy default endpoint specific user settings overrides into container to specify Python path
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
@@ -9,17 +9,8 @@ RUN apk add --no-cache alpine-sdk bash bash-doc bash-completion ca-certificates 
     && printf "#!/bin/bash\n\ncode-insiders \$@\n" > /usr/local/bin/code \
     && chmod +x /usr/local/bin/code
 
-# Install paket
-RUN dotnet tool install --global Paket
-
-# Install fake
-RUN dotnet tool install --global fake-cli
-
-# Add fsi to PATH
-COPY fsi /root/.dotnet/tools/fsi
-
-# Add dotnet tools to PATH
-ENV PATH="/root/.dotnet/tools/:${PATH}"
+# Install tslint and typescript
+RUN npm install --global eslint jest prettier typescript
 
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

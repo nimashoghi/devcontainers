@@ -10,7 +10,7 @@ RUN apk add --no-cache alpine-sdk bash bash-doc bash-completion ca-certificates 
     && chmod +x /usr/local/bin/code
 
 # Install tslint and typescript
-RUN npm install --global eslint prettier typescript
+RUN npm install --global eslint jest prettier typescript
 
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"
