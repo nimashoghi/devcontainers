@@ -8,7 +8,9 @@ RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc
     && curl -L https://get.oh-my.fish > /tmp/install \
     && fish /tmp/install --noninteractive \
     && rm /tmp/install \
-    && fish -c "omf install pure"
+    && fish -c "omf install pure" \
+    && ln -s ~/.local/share/omf/themes/pure/conf.d/pure.fish ~/.config/fish/conf.d/pure.fish \
+    && ln -s ~/.local/share/omf/themes/pure/conf.d/_pure_init.fish ~/.config/fish/conf.d/pure_init.fish
 
 # Install LaTeX
 RUN apk add --no-cache biber make texlive-full
