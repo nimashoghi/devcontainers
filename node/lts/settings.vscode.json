@@ -1,0 +1,4 @@
+{
+    "terminal.integrated.shell.linux": "/usr/bin/fish",
+    "terminal.integrated.shellArgs.linux": []
+}
