@@ -4,7 +4,9 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.2-alpine
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 
 # Configure apt and install necessary libraries
-RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc++ musl
+RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc++ musl \
+    && curl -L https://get.oh-my.fish | fish \
+    && omf install pure
 
 # Install paket
 RUN dotnet tool install --global Paket
