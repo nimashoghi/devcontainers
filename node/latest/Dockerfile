@@ -8,7 +8,7 @@ RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc
     && curl -L https://get.oh-my.fish > /tmp/install \
     && fish /tmp/install --noninteractive \
     && rm /tmp/install \
-    && omf install pure
+    && fish -c "omf install pure"
 
 # Install tslint and typescript
 RUN npm install --global eslint jest prettier typescript
