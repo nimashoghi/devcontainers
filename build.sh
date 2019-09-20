@@ -1,3 +1,5 @@
+docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
 # clojure
 docker build --rm -f "./clojure/latest/Dockerfile" -t "$DOCKER_USERNAME/clojure:latest-$TRAVIS_TAG" "./clojure/latest"
 docker tag "$DOCKER_USERNAME/clojure:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/clojure:latest"
@@ -47,3 +49,5 @@ docker build --rm -f "./python/latest/Dockerfile" -t "$DOCKER_USERNAME/python:la
 docker tag "$DOCKER_USERNAME/python:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/python:latest"
 docker push $DOCKER_USERNAME/python:alpine-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/python:alpine
+
+docker logout
