@@ -39,15 +39,19 @@ docker push $DOCKER_USERNAME/node:lts-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:lts
 
 # python
-docker build --rm -f "./python/2.7/Dockerfile" -t "$DOCKER_USERNAME/python:2.7-$TRAVIS_TAG" "./python/2.7"
+docker build --rm -f "./python/${TARGET_ENVIRONMENT:-slim}/2.7/Dockerfile" -t "$DOCKER_USERNAME/python:2.7-$TRAVIS_TAG" "./python/2.7"
 docker tag "$DOCKER_USERNAME/python:2.7-$TRAVIS_TAG" "$DOCKER_USERNAME/python:2.7"
 docker push $DOCKER_USERNAME/python:2.7-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/python:2.7
-docker build --rm -f "./python/3.7/Dockerfile" -t "$DOCKER_USERNAME/python:3.7-$TRAVIS_TAG" "./python/3.7"
+docker build --rm -f "./python/${TARGET_ENVIRONMENT:-slim}/3.7/Dockerfile" -t "$DOCKER_USERNAME/python:3.7-$TRAVIS_TAG" "./python/3.7"
 docker tag "$DOCKER_USERNAME/python:3.7-$TRAVIS_TAG" "$DOCKER_USERNAME/python:3.7"
 docker push $DOCKER_USERNAME/python:3.7-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/python:3.7
-docker build --rm -f "./python/latest/Dockerfile" -t "$DOCKER_USERNAME/python:latest-$TRAVIS_TAG" "./python/latest"
+docker build --rm -f "./python/${TARGET_ENVIRONMENT:-slim}/3.8/Dockerfile" -t "$DOCKER_USERNAME/python:3.8-$TRAVIS_TAG" "./python/3.8"
+docker tag "$DOCKER_USERNAME/python:3.8-$TRAVIS_TAG" "$DOCKER_USERNAME/python:3.8"
+docker push $DOCKER_USERNAME/python:3.8-$TRAVIS_TAG
+docker push $DOCKER_USERNAME/python:3.8
+docker build --rm -f "./python/${TARGET_ENVIRONMENT:-slim}/latest/Dockerfile" -t "$DOCKER_USERNAME/python:latest-$TRAVIS_TAG" "./python/latest"
 docker tag "$DOCKER_USERNAME/python:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/python:latest"
 docker push $DOCKER_USERNAME/python:latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/python:latest

@@ -1,10 +1,25 @@
-FROM python:3-alpine
+FROM python:3.7-slim
+
+# make debian non-interactive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Copy default endpoint specific user settings overrides into container to specify Python path
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 
 # Configure apt and install necessary libraries
-RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc++ musl \
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes \
+    apt-transport-https build-essential ca-certificates curl git gnupg2 libssl-dev libffi-dev software-properties-common wget
+
+# Install Docker
+RUN curl -fsSL https://get.docker.com | sh
+
+# Install fish
+RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish/Debian_9.0/ /' > /etc/apt/sources.list.d/shells:fish.list \
+    && wget -nv https://download.opensuse.org/repositories/shells:fish/Debian_9.0/Release.key -O Release.key \
+    && apt-key add - < Release.key \
+    && apt-get update \
+    && apt-get install --no-install-recommends --yes fish \
     && curl -L https://get.oh-my.fish > /tmp/install \
     && fish /tmp/install --noninteractive \
     && rm /tmp/install \
@@ -15,9 +30,6 @@ RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc
 # Upgrade pip
 RUN pip install --upgrade pip
 
-# Install build dependencies
-RUN apk add --no-cache --update --virtual .build-deps libffi-dev openssl-dev
-
 # Install poetry
 RUN pip install --pre black poetry
 COPY ./config.toml /root/.config/pypoetry/config.toml
@@ -25,8 +37,9 @@ COPY ./config.toml /root/.config/pypoetry/config.toml
 # Install bandit, jupyter, mypy, pylint
 RUN pip install bandit jupyter mypy pylint
 
-# Remove build dependencies
-RUN apk del .build-deps
+# Clear apt cache
+RUN apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"
