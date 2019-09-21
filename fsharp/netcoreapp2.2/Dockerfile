@@ -25,5 +25,8 @@ RUN chmod +x /root/.dotnet/tools/fsi
 # Add dotnet tools to PATH
 ENV PATH="/root/.dotnet/tools/:${PATH}"
 
+# Adjust max user watches config
+RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

@@ -28,5 +28,8 @@ RUN pip install bandit jupyter mypy pylint
 # Remove build dependencies
 RUN apk del .build-deps
 
+# Adjust max user watches config
+RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

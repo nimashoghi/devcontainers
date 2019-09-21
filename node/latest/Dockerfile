@@ -15,5 +15,8 @@ RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc
 # Install tslint and typescript
 RUN npm install --global eslint jest prettier typescript
 
+# Adjust max user watches config
+RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"

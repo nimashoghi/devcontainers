@@ -12,5 +12,8 @@ RUN apk add --no-cache alpine-sdk ca-certificates docker fish git libgcc libstdc
     && ln -s ~/.local/share/omf/themes/pure/conf.d/pure.fish ~/.config/fish/conf.d/pure.fish \
     && ln -s ~/.local/share/omf/themes/pure/conf.d/_pure_init.fish ~/.config/fish/conf.d/pure_init.fish
 
+# Adjust max user watches config
+RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
+
 # Wait forever
 CMD /bin/sh -c "while sleep 1000; do :; done"
