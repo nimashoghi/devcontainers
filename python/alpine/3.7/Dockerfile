@@ -4,7 +4,14 @@ FROM python:3.7-alpine
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 
 # Configure apt and install necessary libraries
-RUN apk add --no-cache alpine-sdk bash ca-certificates docker fish git libgcc libstdc++ musl \
+RUN apk add --no-cache alpine-sdk bash ca-certificates docker git libgcc libstdc++ musl
+
+# Install docker and docker-compose
+RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py-pip python-dev \
+    && pip install docker-compose
+
+# Install fish, oh-my-fish, and pure theme
+RUN apk add --no-cache fish \
     && curl -L https://get.oh-my.fish > /tmp/install \
     && fish /tmp/install --noninteractive \
     && rm /tmp/install \

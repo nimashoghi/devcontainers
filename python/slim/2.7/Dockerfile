@@ -11,8 +11,9 @@ RUN apt-get update \
     && apt-get install --no-install-recommends --yes \
     apt-transport-https build-essential ca-certificates curl git gnupg2 software-properties-common wget
 
-# Install Docker
-RUN curl -fsSL https://get.docker.com | sh
+# Install docker and docker-compose
+RUN curl -fsSL https://get.docker.com | sh \
+    && pip install docker-compose
 
 # Install fish
 RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish/Debian_9.0/ /' > /etc/apt/sources.list.d/shells:fish.list \
