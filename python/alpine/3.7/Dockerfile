@@ -11,7 +11,7 @@ RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py-pip py
     && pip install docker-compose
 
 # Install fish, oh-my-fish, and pure theme
-RUN apk add --no-cache fish \
+RUN apk add --no-cache bc fish mdocml-apropos \
     && curl -L https://get.oh-my.fish > /tmp/install \
     && fish /tmp/install --noninteractive \
     && rm /tmp/install \
