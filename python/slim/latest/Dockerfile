@@ -19,7 +19,8 @@ RUN curl -fsSL https://get.docker.com | sh \
 # Install fish, oh-my-fish, and pure theme
 COPY --from=fish /app/ /usr/local/
 COPY --from=fish /root/.config/fish/config.fish /root/.config/fish/config.fish
-RUN apk add --no-cache bc bzip2 gettext libedit mdocml-apropos ncurses readline zlib \
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends bc bzip2 gettext libeditline0 libreadline7 libncurses5 zlib1g \
     && curl -L https://get.oh-my.fish > /tmp/install-omf \
     && fish /tmp/install-omf --noninteractive \
     && rm /tmp/install-omf \
