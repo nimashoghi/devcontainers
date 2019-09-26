@@ -2,10 +2,10 @@
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-# fish base images
-docker build --rm -f "fish/alpine/3.10/Dockerfile" -t nimashoghi/fish:alpine-3.10 fish/alpine/3.10
-docker build --rm -f "fish/alpine/3.9/Dockerfile" -t nimashoghi/fish:alpine-3.9 fish/alpine/3.9
-docker build --rm -f "fish/slim/buster/Dockerfile" -t nimashoghi/fish:slim-buster fish/slim/buster
+# # fish base images
+# docker build --rm -f "fish/alpine/3.10/Dockerfile" -t nimashoghi/fish:alpine-3.10 fish/alpine/3.10
+# docker build --rm -f "fish/alpine/3.9/Dockerfile" -t nimashoghi/fish:alpine-3.9 fish/alpine/3.9
+# docker build --rm -f "fish/slim/buster/Dockerfile" -t nimashoghi/fish:slim-buster fish/slim/buster
 
 # clojure
 docker build --rm -f "./clojure/latest/Dockerfile" -t "$DOCKER_USERNAME/clojure:latest-$TRAVIS_TAG" "./clojure/latest"
