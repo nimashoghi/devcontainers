@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.10 as builder
 
 # install dependencies
 RUN apk add --no-cache \
@@ -25,3 +25,8 @@ RUN git clone https://github.com/fish-shell/fish-shell.git \
 
 # copy config
 COPY ./config.fish /root/.config/fish/config.fish
+
+FROM alpine:3.10
+
+COPY --from=builder /app/ /app/
+COPY --from=builder /root/.config/fish/config.fish /root/.config/fish/config.fish

@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:buster-slim as builder
 
 # install dependencies
 RUN apt-get update && \
@@ -27,3 +27,8 @@ RUN git clone https://github.com/fish-shell/fish-shell.git \
 
 # copy config
 COPY ./config.fish /root/.config/fish/config.fish
+
+FROM debian:buster-slim
+
+COPY --from=builder /app/ /app/
+COPY --from=builder /root/.config/fish/config.fish /root/.config/fish/config.fish
