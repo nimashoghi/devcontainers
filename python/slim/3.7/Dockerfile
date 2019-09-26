@@ -1,3 +1,4 @@
+FROM nimashoghi/fish:slim-buster as fish
 FROM python:3.7-slim
 
 # make debian non-interactive
@@ -15,15 +16,13 @@ RUN apt-get update \
 RUN curl -fsSL https://get.docker.com | sh \
     && pip install docker-compose
 
-# Install fish
-RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish/Debian_9.0/ /' > /etc/apt/sources.list.d/shells:fish.list \
-    && wget -nv https://download.opensuse.org/repositories/shells:fish/Debian_9.0/Release.key -O Release.key \
-    && apt-key add - < Release.key \
-    && apt-get update \
-    && apt-get install --no-install-recommends --yes fish \
-    && curl -L https://get.oh-my.fish > /tmp/install \
-    && fish /tmp/install --noninteractive \
-    && rm /tmp/install \
+# Install fish, oh-my-fish, and pure theme
+COPY --from=fish /app/ /usr/local/
+COPY --from=fish /root/.config/fish/config.fish /root/.config/fish/config.fish
+RUN apk add --no-cache bc bzip2 gettext libedit mdocml-apropos ncurses readline zlib \
+    && curl -L https://get.oh-my.fish > /tmp/install-omf \
+    && fish /tmp/install-omf --noninteractive \
+    && rm /tmp/install-omf \
     && fish -c "omf install pure" \
     && ln -s ~/.local/share/omf/themes/pure/conf.d/pure.fish ~/.config/fish/conf.d/pure.fish \
     && ln -s ~/.local/share/omf/themes/pure/conf.d/_pure_init.fish ~/.config/fish/conf.d/pure_init.fish
