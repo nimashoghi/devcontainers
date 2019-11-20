@@ -27,7 +27,7 @@ RUN apk add --no-cache biber make texlive-full
 
 # Install other necessary packages
 RUN apk add --no-cache perl-log-dispatch perl-yaml-tiny
-RUN apk add --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ perl-file-homedir
+RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ perl-file-homedir
 
 # Adjust max user watches config
 RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
