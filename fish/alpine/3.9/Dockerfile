@@ -16,6 +16,7 @@ RUN apk add --no-cache \
 WORKDIR /build
 RUN git clone https://github.com/fish-shell/fish-shell.git \
     && cd fish-shell \
+    && git reset --hard 8acff328e0f249ec01b1fe2a28f41de5e6129e5b \
     && mkdir build \
     && cd build \
     && cmake -DCMAKE_INSTALL_PREFIX="/app" .. \

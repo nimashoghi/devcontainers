@@ -22,7 +22,7 @@ RUN apk add --no-cache bc bzip2 gettext libedit mdocml-apropos ncurses readline 
     && ln -s ~/.local/share/omf/themes/pure/conf.d/pure.fish ~/.config/fish/conf.d/pure.fish \
     && ln -s ~/.local/share/omf/themes/pure/conf.d/_pure_init.fish ~/.config/fish/conf.d/pure_init.fish
 
-# Install tslint and typescript
+# Install eslint, jest, prettier, and typescript
 RUN npm install --global eslint jest prettier typescript
 
 # Adjust max user watches config
