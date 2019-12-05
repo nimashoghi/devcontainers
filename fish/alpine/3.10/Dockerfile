@@ -1,10 +1,11 @@
-FROM alpine:3.10 as builder
+FROM alpine:3.10
 
 # install dependencies
 RUN apk add --no-cache \
     alpine-sdk \
     bzip2-dev \
     cmake \
+    curl \
     git \
     gettext-dev \
     libedit-dev \
@@ -16,7 +17,6 @@ RUN apk add --no-cache \
 WORKDIR /build
 RUN git clone https://github.com/fish-shell/fish-shell.git \
     && cd fish-shell \
-    && git reset --hard 8acff328e0f249ec01b1fe2a28f41de5e6129e5b \
     && mkdir build \
     && cd build \
     && cmake -DCMAKE_INSTALL_PREFIX="/app" .. \
@@ -24,10 +24,8 @@ RUN git clone https://github.com/fish-shell/fish-shell.git \
     && mkdir /app \
     && make install
 
-# copy config
-COPY ./config.fish /root/.config/fish/config.fish
-
-FROM alpine:3.10
-
-COPY --from=builder /app/ /app/
-COPY --from=builder /root/.config/fish/config.fish /root/.config/fish/config.fish
+# Install config from dotfiles
+RUN mkdir -p /root/.config \
+    && mkdir -p /root/.config/fish/ \
+    && cd /root/.config/fish/ \
+    && curl https://raw.githubusercontent.com/nimashoghi/dotfiles/master/.config/fish/config.fish -o config.fish

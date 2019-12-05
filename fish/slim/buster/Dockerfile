@@ -1,4 +1,4 @@
-FROM debian:buster-slim as builder
+FROM debian:buster-slim
 
 # install dependencies
 RUN apt-get update && \
@@ -6,6 +6,7 @@ RUN apt-get update && \
     build-essential \
     ca-certificates \
     cmake \
+    curl \
     git \
     gettext \
     libbz2-dev \
@@ -18,18 +19,9 @@ RUN apt-get update && \
 WORKDIR /build
 RUN git clone https://github.com/fish-shell/fish-shell.git \
     && cd fish-shell \
-    && git reset --hard 8acff328e0f249ec01b1fe2a28f41de5e6129e5b \
     && mkdir build \
     && cd build \
     && cmake -DCMAKE_INSTALL_PREFIX="/app" .. \
     && make -j \
     && mkdir /app \
     && make install
-
-# copy config
-COPY ./config.fish /root/.config/fish/config.fish
-
-FROM debian:buster-slim
-
-COPY --from=builder /app/ /app/
-COPY --from=builder /root/.config/fish/config.fish /root/.config/fish/config.fish

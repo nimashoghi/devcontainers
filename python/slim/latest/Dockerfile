@@ -16,17 +16,15 @@ RUN apt-get update \
 RUN curl -fsSL https://get.docker.com | sh \
     && pip install docker-compose
 
-# Install fish, oh-my-fish, and pure theme
-COPY --from=fish /app/ /usr/local/
-COPY --from=fish /root/.config/fish/config.fish /root/.config/fish/config.fish
+# Install fish and its dependencies
 RUN apt-get update \
-    && apt-get install --yes --no-install-recommends bc bzip2 gettext libeditline0 libreadline7 libncurses5 zlib1g \
-    && curl -L https://get.oh-my.fish > /tmp/install-omf \
-    && fish /tmp/install-omf --noninteractive \
-    && rm /tmp/install-omf \
-    && fish -c "omf install pure" \
-    && ln -s ~/.local/share/omf/themes/pure/conf.d/pure.fish ~/.config/fish/conf.d/pure.fish \
-    && ln -s ~/.local/share/omf/themes/pure/conf.d/_pure_init.fish ~/.config/fish/conf.d/pure_init.fish
+    && apt-get install --yes --no-install-recommends bc bzip2 gettext libeditline0 libreadline7 libncurses5 zlib1g
+COPY --from=fish /app/ /usr/local/
+# Install config from dotfiles
+RUN mkdir -p /root/.config \
+    && mkdir -p /root/.config/fish/ \
+    && cd /root/.config/fish/ \
+    && curl https://raw.githubusercontent.com/nimashoghi/dotfiles/master/.config/fish/config.fish -o config.fish
 
 # Upgrade pip
 RUN pip install --upgrade pip

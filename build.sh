@@ -10,7 +10,7 @@ docker push $DOCKER_USERNAME/fish:alpine-3.10
 docker build --rm -f "fish/alpine/3.9/Dockerfile" -t "$DOCKER_USERNAME/fish:alpine-3.9-$TRAVIS_TAG" fish/alpine/3.9
 docker tag "$DOCKER_USERNAME/fish:alpine-3.9-$TRAVIS_TAG" "$DOCKER_USERNAME/fish:alpine-3.9"
 docker push $DOCKER_USERNAME/fish:alpine-3.9-$TRAVIS_TAG
-docker push $DOCKER_USERNAME/fish:alpine-3.19
+docker push $DOCKER_USERNAME/fish:alpine-3.9
 docker build --rm -f "fish/slim/buster/Dockerfile" -t "$DOCKER_USERNAME/fish:slim-buster-$TRAVIS_TAG" fish/slim/buster
 docker tag "$DOCKER_USERNAME/fish:slim-buster-$TRAVIS_TAG" "$DOCKER_USERNAME/fish:slim-buster"
 docker push $DOCKER_USERNAME/fish:slim-buster-$TRAVIS_TAG
