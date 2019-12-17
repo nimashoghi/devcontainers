@@ -1,11 +1,16 @@
 FROM nimashoghi/fish:slim-buster as fish
 FROM node:lts-buster-slim
 
-# make debian non-interactive
+# Make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Set locale
-ENV LC_ALL=en_US.utf8
+# Fix locale issues
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes locales \
+    && locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # Copy default endpoint specific user settings overrides into container to specify Python path
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
