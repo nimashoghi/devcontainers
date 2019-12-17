@@ -41,35 +41,35 @@ docker push $DOCKER_USERNAME/latex:latest
 # node
 docker build --rm -f "./node/alpine/current/Dockerfile" -t "$DOCKER_USERNAME/node:alpine-current-$TRAVIS_TAG" "./node/alpine/current"
 docker tag "$DOCKER_USERNAME/node:alpine-current-$TRAVIS_TAG" "$DOCKER_USERNAME/node:alpine-current"
+docker tag "$DOCKER_USERNAME/node:alpine-current-$TRAVIS_TAG" "$DOCKER_USERNAME/node:current"
 docker push $DOCKER_USERNAME/node:alpine-current-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:alpine-current
+docker push $DOCKER_USERNAME/node:current
 docker build --rm -f "./node/alpine/latest/Dockerfile" -t "$DOCKER_USERNAME/node:alpine-latest-$TRAVIS_TAG" "./node/alpine/latest"
 docker tag "$DOCKER_USERNAME/node:alpine-latest-$TRAVIS_TAG" "$DOCKER_USERNAME/node:alpine-latest"
+docker tag "$DOCKER_USERNAME/node:alpine-latest-$TRAVIS_TAG" "$DOCKER_USERNAME/node:latest"
 docker push $DOCKER_USERNAME/node:alpine-latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:alpine-latest
+docker push $DOCKER_USERNAME/node:latest
 docker build --rm -f "./node/alpine/lts/Dockerfile" -t "$DOCKER_USERNAME/node:alpine-lts-$TRAVIS_TAG" "./node/alpine/lts"
 docker tag "$DOCKER_USERNAME/node:alpine-lts-$TRAVIS_TAG" "$DOCKER_USERNAME/node:alpine-lts"
+docker tag "$DOCKER_USERNAME/node:alpine-lts-$TRAVIS_TAG" "$DOCKER_USERNAME/node:lts"
 docker push $DOCKER_USERNAME/node:alpine-lts-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:alpine-lts
+docker push $DOCKER_USERNAME/node:lts
 
 docker build --rm -f "./node/slim/current/Dockerfile" -t "$DOCKER_USERNAME/node:slim-current-$TRAVIS_TAG" "./node/slim/current"
 docker tag "$DOCKER_USERNAME/node:slim-current-$TRAVIS_TAG" "$DOCKER_USERNAME/node:slim-current"
-docker tag "$DOCKER_USERNAME/node:slim-current-$TRAVIS_TAG" "$DOCKER_USERNAME/node:current"
 docker push $DOCKER_USERNAME/node:slim-current-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:slim-current
-docker push $DOCKER_USERNAME/node:current
 docker build --rm -f "./node/slim/latest/Dockerfile" -t "$DOCKER_USERNAME/node:slim-latest-$TRAVIS_TAG" "./node/slim/latest"
 docker tag "$DOCKER_USERNAME/node:slim-latest-$TRAVIS_TAG" "$DOCKER_USERNAME/node:slim-latest"
-docker tag "$DOCKER_USERNAME/node:slim-latest-$TRAVIS_TAG" "$DOCKER_USERNAME/node:latest"
 docker push $DOCKER_USERNAME/node:slim-latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:slim-latest
-docker push $DOCKER_USERNAME/node:latest
 docker build --rm -f "./node/slim/lts/Dockerfile" -t "$DOCKER_USERNAME/node:slim-lts-$TRAVIS_TAG" "./node/slim/lts"
 docker tag "$DOCKER_USERNAME/node:slim-lts-$TRAVIS_TAG" "$DOCKER_USERNAME/node:slim-lts"
-docker tag "$DOCKER_USERNAME/node:slim-lts-$TRAVIS_TAG" "$DOCKER_USERNAME/node:lts"
 docker push $DOCKER_USERNAME/node:slim-lts-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/node:slim-lts
-docker push $DOCKER_USERNAME/node:lts
 
 # python
 docker build --rm -f "./python/${TARGET_ENVIRONMENT:-slim}/2.7/Dockerfile" -t "$DOCKER_USERNAME/python:2.7-$TRAVIS_TAG" "./python/${TARGET_ENVIRONMENT:-slim}/2.7"
