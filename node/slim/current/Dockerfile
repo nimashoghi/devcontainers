@@ -18,7 +18,7 @@ COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 # Configure apt and install necessary libraries
 RUN apt-get update \
     && apt-get install --no-install-recommends --yes \
-    apt-transport-https build-essential ca-certificates curl git gnupg2 libssl-dev libffi-dev software-properties-common wget
+    apt-transport-https build-essential ca-certificates curl git gnupg2 libssl-dev libffi-dev procps software-properties-common wget
 
 # Install docker and docker-compose
 RUN curl -fsSL https://get.docker.com | sh \
