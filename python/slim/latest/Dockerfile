@@ -22,12 +22,12 @@ RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-pos
 # Upgrade pip
 RUN pip install --upgrade pip
 
-# Install poetry
-RUN pip install --pre black poetry
-COPY ./config.toml /root/.config/pypoetry/config.toml
+# Install black
+RUN pip install --pre black
 
-# Install bandit, jupyter, mypy, pylint
-RUN pip install bandit jupyter mypy pylint
+# Install bandit, jupyter, mypy, poetry, pylint
+RUN pip install bandit jupyter mypy poetry pylint
+COPY ./config.toml /root/.config/pypoetry/config.toml
 
 # Clear apt cache
 RUN apt-get clean \

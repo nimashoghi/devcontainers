@@ -18,9 +18,14 @@ def get_directories(original_path: str):
         yield path
 
 
-def get_tags(image_path: str):
+def get_tags(image_path: str, *, prefix: str = None):
     for tag in get_directories(image_path):
-        yield tag, os.path.join(image_path, tag)
+        tag_path = os.path.join(image_path, tag)
+        name = f"{prefix}-{tag}" if prefix is not None else tag
+        if all((os.path.isdir(os.path.join(tag_path, sub)) for sub in os.listdir(tag_path))):
+            yield from get_tags(tag_path, prefix=name)
+        else:
+            yield name, tag_path
 
 
 def get_images(path: str):
@@ -51,8 +56,11 @@ def process_image(image: str, image_path: str):
     print(f"Processing image {image}")
     for tag, path in get_tags(image_path):
         process_image_tag(image, tag, path)
-        if tag == "alpine":
+        if tag == "alpine-latest":
             process_image_tag(image, "latest", path)
+        if tag.endswith("-latest"):
+            process_image_tag(image, tag[0:-(len('latest')+1)], path)
+
     execute("")
 
 

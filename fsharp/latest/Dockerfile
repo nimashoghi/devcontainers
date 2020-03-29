@@ -14,12 +14,6 @@ RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py-pip py
 COPY ./install-posh-alpine.sh /tmp/install-posh.sh
 RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
-# Install paket
-RUN dotnet tool install --global Paket
-
-# Install fake
-RUN dotnet tool install --global fake-cli
-
 # Add fsi to PATH
 COPY fsi /root/.dotnet/tools/fsi
 RUN chmod +x /root/.dotnet/tools/fsi

@@ -14,9 +14,6 @@ RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py-pip py
 COPY ./install-posh-alpine.sh /tmp/install-posh.sh
 RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
-# Install eslint, jest, prettier, and typescript
-RUN npm install --global eslint jest prettier typescript
-
 # Adjust max user watches config
 RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
 

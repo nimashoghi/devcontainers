@@ -20,12 +20,12 @@ RUN pip install --upgrade pip
 # Install build dependencies
 RUN apk add --no-cache --update --virtual .build-deps libffi-dev openssl-dev
 
-# Install poetry
-RUN pip install --pre black poetry
-COPY ./config.toml /root/.config/pypoetry/config.toml
+# Install black
+RUN pip install --pre black
 
-# Install bandit, jupyter, mypy, pylint
-RUN pip install bandit jupyter mypy pylint
+# Install bandit, jupyter, mypy, poetry, pylint
+RUN pip install bandit jupyter mypy poetry pylint
+COPY ./config.toml /root/.config/pypoetry/config.toml
 
 # Remove build dependencies
 RUN apk del .build-deps
