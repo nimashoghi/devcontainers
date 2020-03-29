@@ -34,5 +34,5 @@ chmod +x /opt/microsoft/powershell/7/pwsh
 ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh
 
 # Add to shells and set PowerShell as the default shell
-echo "/usr/bin/pwsh" | tee /etc/shells
+echo "/usr/bin/pwsh" | tee -a /etc/shells
 sed -i -E "s/^(root:.+):\/.+$/\1:\/usr\/bin\/pwsh/"
