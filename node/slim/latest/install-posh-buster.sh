@@ -16,4 +16,4 @@ apt-get install -y powershell
 
 # Add to shells and set PowerShell as the default shell
 echo "/usr/bin/pwsh" | tee -a /etc/shells
-sed -i -E "s/^(root:.+):\/.+$/\1:\/usr\/bin\/pwsh/"
+sed -i -E "s/^(root:.+):\/.+$/\1:\/usr\/bin\/pwsh/" /etc/passwd
