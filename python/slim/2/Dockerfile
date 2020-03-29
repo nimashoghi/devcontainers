@@ -1,5 +1,4 @@
-FROM nimashoghi/fish:slim-buster as fish
-FROM python:3.7-slim
+FROM python:2-slim
 
 # make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,31 +9,25 @@ COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 # Configure apt and install necessary libraries
 RUN apt-get update \
     && apt-get install --no-install-recommends --yes \
-    apt-transport-https build-essential ca-certificates curl git gnupg2 libssl-dev libffi-dev procps software-properties-common wget
+    apt-transport-https build-essential ca-certificates curl git gnupg2 procps software-properties-common wget
 
 # Install docker and docker-compose
 RUN curl -fsSL https://get.docker.com | sh \
     && pip install docker-compose
 
-# Install fish and its dependencies
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends bc bzip2 gettext libeditline0 libreadline7 libncurses5 zlib1g
-COPY --from=fish /app/ /usr/local/
-# Install config from dotfiles
-RUN mkdir -p /root/.config \
-    && mkdir -p /root/.config/fish/ \
-    && cd /root/.config/fish/ \
-    && curl https://raw.githubusercontent.com/nimashoghi/dotfiles/master/.config/fish/config.fish -o config.fish
+# Install Posh
+COPY ./install-posh-buster.sh /tmp/install-posh.sh
+RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
 # Upgrade pip
 RUN pip install --upgrade pip
 
 # Install poetry
-RUN pip install --pre black poetry
+RUN pip install --pre poetry
 COPY ./config.toml /root/.config/pypoetry/config.toml
 
-# Install bandit, jupyter, mypy, pylint
-RUN pip install bandit jupyter mypy pylint
+# Install autopep8, bandit, jupyter, pylint
+RUN pip install autopep8 bandit jupyter pylint
 
 # Clear apt cache
 RUN apt-get clean \

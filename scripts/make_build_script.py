@@ -2,10 +2,12 @@ import os
 import os.path
 from contextlib import contextmanager
 
+NO_PUSH = int(os.environ.get("NO_PUSH", "0"))
 
-def execute(command: str):
+def execute(command: str, *, with_newline=False):
     with open("./build.sh", "a") as f:
-        f.write(f"{command}\n")
+        newline = '\n' if with_newline else ''
+        f.write(f"{command}\n{newline}")
 
 
 def get_directories(original_path: str):
@@ -38,8 +40,10 @@ def process_image_tag(image: str, tag: str, path: str):
     )
     execute(f'docker tag "{full_image_name}" "{short_image_name}"')
 
-    execute(f"docker push {full_image_name}")
-    execute(f"docker push {short_image_name}")
+    global NO_PUSH
+    if not NO_PUSH:
+        execute(f"docker push {full_image_name}")
+        execute(f"docker push {short_image_name}")
 
 
 def process_image(image: str, image_path: str):
@@ -47,16 +51,18 @@ def process_image(image: str, image_path: str):
     print(f"Processing image {image}")
     for tag, path in get_tags(image_path):
         process_image_tag(image, tag, path)
+        if tag == "alpine":
+            process_image_tag(image, "latest", path)
     execute("")
 
 
 @contextmanager
 def docker_login(username: str, password: str):
     try:
-        execute(f"docker login -u {username} -p {password}")
+        execute(f"docker login -u {username} -p {password}", with_newline=True)
         yield
     finally:
-        execute(f"docker logout")
+        execute(f"docker logout",with_newline=True)
 
 
 def main():
@@ -64,6 +70,8 @@ def main():
         os.remove("./build.sh")
     except BaseException:
         pass
+
+    execute("#!/bin/sh", with_newline=True)
 
     with docker_login("$DOCKER_USERNAME", "$DOCKER_PASSWORD"):
         for image, image_path in get_images("."):

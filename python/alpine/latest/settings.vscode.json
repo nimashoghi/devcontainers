@@ -4,8 +4,6 @@
         "**/.git/subtree-cache/**": true,
         "**/node_modules/*/**": true
     },
-    "terminal.integrated.shell.linux": "/usr/local/bin/fish",
-    "terminal.integrated.shellArgs.linux": [],
     "python.pythonPath": "/usr/local/bin/python",
     "python.formatting.provider": "black",
     "python.linting.banditEnabled": true,

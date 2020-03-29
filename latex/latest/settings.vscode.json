@@ -3,7 +3,5 @@
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
         "**/node_modules/*/**": true
-    },
-    "terminal.integrated.shell.linux": "/usr/local/bin/fish",
-    "terminal.integrated.shellArgs.linux": []
+    }
 }

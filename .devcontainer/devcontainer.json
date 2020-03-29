@@ -1,8 +1,0 @@
-{
-    "name": "Python 3",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "development",
-    "workspaceFolder": "/workspace",
-    "shutdownAction": "stopCompose",
-    "extensions": ["ms-python.python", "visualstudioexptteam.vscodeintellicode"]
-}

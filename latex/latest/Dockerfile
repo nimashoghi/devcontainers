@@ -1,5 +1,4 @@
-FROM nimashoghi/fish:alpine-3.10 AS fish
-FROM alpine
+FROM alpine:latest
 
 # Copy default endpoint specific user settings overrides into container to specify Python path
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
@@ -11,14 +10,9 @@ RUN apk add --no-cache alpine-sdk bash ca-certificates curl docker git libgcc li
 RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py-pip python-dev \
     && pip install docker-compose
 
-# Install fish and its dependencies
-RUN apk add --no-cache bc bzip2 gettext libedit mdocml-apropos ncurses readline zlib
-COPY --from=fish /app/ /usr/local/
-# Install config from dotfiles
-RUN mkdir -p /root/.config \
-    && mkdir -p /root/.config/fish/ \
-    && cd /root/.config/fish/ \
-    && curl https://raw.githubusercontent.com/nimashoghi/dotfiles/master/.config/fish/config.fish -o config.fish
+# Install Posh
+COPY ./install-posh-alpine.sh /tmp/install-posh.sh
+RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
 # Install LaTeX
 RUN apk add --no-cache biber make texlive-full

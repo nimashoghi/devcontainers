@@ -1,5 +1,4 @@
-FROM nimashoghi/fish:slim-buster as fish
-FROM python:3.8-rc-slim
+FROM python:latest-slim
 
 # make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,15 +15,9 @@ RUN apt-get update \
 RUN curl -fsSL https://get.docker.com | sh \
     && pip install docker-compose
 
-# Install fish and its dependencies
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends bc bzip2 gettext libeditline0 libreadline7 libncurses5 zlib1g
-COPY --from=fish /app/ /usr/local/
-# Install config from dotfiles
-RUN mkdir -p /root/.config \
-    && mkdir -p /root/.config/fish/ \
-    && cd /root/.config/fish/ \
-    && curl https://raw.githubusercontent.com/nimashoghi/dotfiles/master/.config/fish/config.fish -o config.fish
+# Install Posh
+COPY ./install-posh-buster.sh /tmp/install-posh.sh
+RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
 # Upgrade pip
 RUN pip install --upgrade pip
