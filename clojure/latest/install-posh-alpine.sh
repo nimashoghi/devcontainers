@@ -35,4 +35,4 @@ ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh
 
 # Add to shells and set PowerShell as the default shell
 echo "/usr/bin/pwsh" | tee /etc/shells
-cat /etc/passwd | sed -E "s/^(root:.+):\/.+$/\1:\/usr\/bin\/pwsh/" > /etc/passwd
+sed -i -E "s/^(root:.+):\/.+$/\1:\/usr\/bin\/pwsh/"
