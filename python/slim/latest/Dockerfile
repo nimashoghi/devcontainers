@@ -1,4 +1,4 @@
-FROM python:latest-slim
+FROM python:slim
 
 # make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
