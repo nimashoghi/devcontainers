@@ -11,6 +11,9 @@ RUN apt-get update \
     && apt-get install --no-install-recommends --yes \
     apt-transport-https build-essential ca-certificates curl git gnupg2 libssl-dev libffi-dev procps software-properties-common wget
 
+# Fix locale issues
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
+
 # Install docker and docker-compose
 RUN curl -fsSL https://get.docker.com | sh \
     && pip install docker-compose
