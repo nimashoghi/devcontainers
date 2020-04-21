@@ -1,15 +1,16 @@
 #!/bin/sh
 
 # Download the Microsoft repository GPG keys
-apt-get update \
-&& apt-get install --no-install-recommends --yes ca-certificates wget \
-&& wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb
+wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
 
 # Register the Microsoft repository GPG keys
 dpkg -i packages-microsoft-prod.deb
 
 # Update the list of products
 apt-get update
+
+# Enable the "universe" repositories
+sudo add-apt-repository universe
 
 # Install PowerShell
 apt-get install -y powershell

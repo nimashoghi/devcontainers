@@ -28,7 +28,7 @@ RUN curl -fsSL https://get.docker.com | sh \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
 # Install Posh
-COPY ./install-posh-buster.sh /tmp/install-posh.sh
+COPY ./install-posh-bionic.sh /tmp/install-posh.sh
 RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
 # Clear apt cache
