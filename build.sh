@@ -36,6 +36,12 @@ docker tag "$DOCKER_USERNAME/clojure:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/cloju
 docker push $DOCKER_USERNAME/clojure:latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/clojure:latest
 
+# react-native
+docker build --rm -f "./react-native/latest/Dockerfile" -t "$DOCKER_USERNAME/react-native:latest-$TRAVIS_TAG" "./react-native/latest"
+docker tag "$DOCKER_USERNAME/react-native:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/react-native:latest"
+docker push $DOCKER_USERNAME/react-native:latest-$TRAVIS_TAG
+docker push $DOCKER_USERNAME/react-native:latest
+
 # latex
 docker build --rm -f "./latex/latest/Dockerfile" -t "$DOCKER_USERNAME/latex:latest-$TRAVIS_TAG" "./latex/latest"
 docker tag "$DOCKER_USERNAME/latex:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/latex:latest"
