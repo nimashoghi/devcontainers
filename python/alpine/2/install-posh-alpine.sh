@@ -36,3 +36,10 @@ ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh
 # Add to shells and set PowerShell as the default shell
 echo "/usr/bin/pwsh" | tee -a /etc/shells
 sed -i -E "s/^(root:.+):\/.+$/\1:\/usr\/bin\/pwsh/" /etc/passwd
+
+# Adding zsh and zsh completions
+cd /root
+git clone https://github.com/zsh-users/zsh-completions.git .zsh-completions/
+echo 'fpath=(/root/.zsh-completions/src $fpath)' >> /root/.zshrc
+rm -f /root/.zcompdump
+compinit
