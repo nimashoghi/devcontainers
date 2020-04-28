@@ -22,9 +22,8 @@ sed -i -E "s/^(root:.+):\/.+$/\1:\/usr\/bin\/pwsh/" /etc/passwd
 # Adding zsh and zsh completions
 apt update
 apt install --yes zsh
-
 cd /root
 git clone https://github.com/zsh-users/zsh-completions.git .zsh-completions/
-echo 'fpath=(/root/.zsh-completions/src $fpath)' >> /root/.zshrc
+echo 'fpath=(/root/.zsh-completions/src $fpath); autoload -Uz compinit; compinit' >> /root/.zshrc
 rm -f /root/.zcompdump
-zsh -c "compinit"
+zsh -c "autoload -Uz compinit; compinit"
