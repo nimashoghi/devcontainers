@@ -48,8 +48,6 @@ docker tag "$DOCKER_USERNAME/latex:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/latex:l
 docker push $DOCKER_USERNAME/latex:latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/latex:latest
 
-# scripts
-
 # python
 docker build --rm -f "./python/alpine/2/Dockerfile" -t "$DOCKER_USERNAME/python:alpine-2-$TRAVIS_TAG" "./python/alpine/2"
 docker tag "$DOCKER_USERNAME/python:alpine-2-$TRAVIS_TAG" "$DOCKER_USERNAME/python:alpine-2"
@@ -81,4 +79,3 @@ docker push $DOCKER_USERNAME/python:slim-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/python:slim
 
 docker logout
-

@@ -43,4 +43,4 @@ cd /root
 git clone https://github.com/zsh-users/zsh-completions.git .zsh-completions/
 echo 'fpath=(/root/.zsh-completions/src $fpath)' >> /root/.zshrc
 rm -f /root/.zcompdump
-compinit
+zsh -c "compinit"
