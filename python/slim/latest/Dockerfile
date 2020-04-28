@@ -3,6 +3,15 @@ FROM python:slim
 # make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Fix locale issues
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes locales \
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 # Copy default endpoint specific user settings overrides into container to specify Python path
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 
@@ -10,9 +19,6 @@ COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 RUN apt-get update \
     && apt-get install --no-install-recommends --yes \
     apt-transport-https build-essential ca-certificates curl git gnupg2 libssl-dev libffi-dev procps software-properties-common wget
-
-# Fix locale issues
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
 # Install docker and docker-compose
 RUN curl -fsSL https://get.docker.com | sh \
