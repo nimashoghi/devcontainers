@@ -9,6 +9,10 @@ docker push $DOCKER_USERNAME/fsharp:latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/fsharp:latest
 
 # node
+docker build --rm -f "./node/alpine/12/Dockerfile" -t "$DOCKER_USERNAME/node:alpine-12-$TRAVIS_TAG" "./node/alpine/12"
+docker tag "$DOCKER_USERNAME/node:alpine-12-$TRAVIS_TAG" "$DOCKER_USERNAME/node:alpine-12"
+docker push $DOCKER_USERNAME/node:alpine-12-$TRAVIS_TAG
+docker push $DOCKER_USERNAME/node:alpine-12
 docker build --rm -f "./node/alpine/latest/Dockerfile" -t "$DOCKER_USERNAME/node:alpine-latest-$TRAVIS_TAG" "./node/alpine/latest"
 docker tag "$DOCKER_USERNAME/node:alpine-latest-$TRAVIS_TAG" "$DOCKER_USERNAME/node:alpine-latest"
 docker push $DOCKER_USERNAME/node:alpine-latest-$TRAVIS_TAG
@@ -48,6 +52,10 @@ docker tag "$DOCKER_USERNAME/latex:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/latex:l
 docker push $DOCKER_USERNAME/latex:latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/latex:latest
 
+# scripts
+
+# assets
+
 # python
 docker build --rm -f "./python/alpine/2/Dockerfile" -t "$DOCKER_USERNAME/python:alpine-2-$TRAVIS_TAG" "./python/alpine/2"
 docker tag "$DOCKER_USERNAME/python:alpine-2-$TRAVIS_TAG" "$DOCKER_USERNAME/python:alpine-2"
@@ -79,3 +87,4 @@ docker push $DOCKER_USERNAME/python:slim-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/python:slim
 
 docker logout
+
