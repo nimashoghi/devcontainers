@@ -25,7 +25,7 @@ RUN curl -fsSL https://get.docker.com | sh \
     && pip install docker-compose
 
 # Install Posh
-COPY ./install-posh-buster.sh /tmp/install-posh.sh
+COPY ./install-posh-bionic.sh /tmp/install-posh.sh
 RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
 # Upgrade pip
