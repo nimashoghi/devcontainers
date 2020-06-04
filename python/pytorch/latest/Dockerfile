@@ -1,4 +1,4 @@
-FROM python:slim
+FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
 
 # make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -34,7 +34,7 @@ RUN pip install --upgrade pip
 # Install black
 RUN pip install --pre black
 
-# Install bandit, jupyter, mypy, poetry, pylint
+# Install jupyter, poetry, pylint
 RUN pip install jupyter poetry pylint
 COPY ./config.toml /root/.config/pypoetry/config.toml
 

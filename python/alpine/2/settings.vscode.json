@@ -5,9 +5,5 @@
         "**/node_modules/*/**": true
     },
     "python.pythonPath": "/usr/local/bin/python",
-    "python.formatting.provider": "autopep8",
-    "python.linting.banditEnabled": true,
-    "python.linting.enabled": true,
-    "python.linting.mypyEnabled": true,
-    "python.linting.pylintEnabled": true
+    "python.formatting.provider": "autopep8"
 }

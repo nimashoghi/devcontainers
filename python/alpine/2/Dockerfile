@@ -21,7 +21,7 @@ RUN pip install --upgrade pip
 RUN apk add --no-cache --update --virtual .build-deps libffi-dev openssl-dev
 
 # Install autopep8, bandit, jupyter, poetry, pylint
-RUN pip install autopep8 bandit jupyter poetry pylint
+RUN pip install autopep8 jupyter poetry pylint
 COPY ./config.toml /root/.config/pypoetry/config.toml
 
 # Remove build dependencies

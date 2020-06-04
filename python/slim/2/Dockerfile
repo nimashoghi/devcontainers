@@ -32,7 +32,7 @@ RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-pos
 RUN pip install --upgrade pip
 
 # Install autopep8, bandit, jupyter, poetry, pylint
-RUN pip install autopep8 bandit jupyter poetry pylint
+RUN pip install autopep8 jupyter poetry pylint
 COPY ./config.toml /root/.config/pypoetry/config.toml
 
 # Clear apt cache
