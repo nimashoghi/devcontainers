@@ -2,6 +2,12 @@
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
+# rust
+docker build --rm -f "./rust/latest/Dockerfile" -t "$DOCKER_USERNAME/rust:latest-$TRAVIS_TAG" "./rust/latest"
+docker tag "$DOCKER_USERNAME/rust:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/rust:latest"
+docker push $DOCKER_USERNAME/rust:latest-$TRAVIS_TAG
+docker push $DOCKER_USERNAME/rust:latest
+
 # react-native
 docker build --rm -f "./react-native/latest/Dockerfile" -t "$DOCKER_USERNAME/react-native:latest-$TRAVIS_TAG" "./react-native/latest"
 docker tag "$DOCKER_USERNAME/react-native:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/react-native:latest"
