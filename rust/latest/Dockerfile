@@ -1,4 +1,4 @@
-FROM rustlang/rust:nightly-stretch
+FROM rustlang/rust:nightly-buster-slim
 
 # make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
