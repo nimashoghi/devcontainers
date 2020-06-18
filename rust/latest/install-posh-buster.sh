@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # Download the Microsoft repository GPG keys
 apt-get update \
 && apt-get install --no-install-recommends --yes ca-certificates wget \

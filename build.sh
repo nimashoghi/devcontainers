@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
 # rust
@@ -101,4 +103,3 @@ docker push $DOCKER_USERNAME/latex:latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/latex:latest
 
 docker logout
-
