@@ -7,7 +7,7 @@ COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 RUN apk add --no-cache alpine-sdk bash ca-certificates curl docker git libgcc libstdc++ musl
 
 # Install docker and docker-compose
-RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py-pip python-dev \
+RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py-pip python3-dev \
     && pip install docker-compose
 
 # Install Posh
