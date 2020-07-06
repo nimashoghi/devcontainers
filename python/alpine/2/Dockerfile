@@ -8,7 +8,7 @@ RUN apk add --no-cache alpine-sdk bash ca-certificates curl docker git libgcc li
 
 # Install docker and docker-compose
 RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py3-pip python3-dev \
-    && pip install docker-compose
+    && pip3 install docker-compose
 
 # Install Posh
 COPY ./install-posh-alpine.sh /tmp/install-posh.sh
