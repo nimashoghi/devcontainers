@@ -33,10 +33,6 @@ RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-pos
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Add fsi to PATH
-COPY fsi /root/.dotnet/tools/fsi
-RUN chmod +x /root/.dotnet/tools/fsi
-
 # Add dotnet tools to PATH
 ENV PATH="/root/.dotnet/tools/:${PATH}"
 

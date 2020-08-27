@@ -96,6 +96,12 @@ docker push $DOCKER_USERNAME/python:pytorch
 
 # scripts
 
+# csharp
+docker build --rm -f "./csharp/latest/Dockerfile" -t "$DOCKER_USERNAME/csharp:latest-$TRAVIS_TAG" "./csharp/latest"
+docker tag "$DOCKER_USERNAME/csharp:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/csharp:latest"
+docker push $DOCKER_USERNAME/csharp:latest-$TRAVIS_TAG
+docker push $DOCKER_USERNAME/csharp:latest
+
 # latex
 docker build --rm -f "./latex/latest/Dockerfile" -t "$DOCKER_USERNAME/latex:latest-$TRAVIS_TAG" "./latex/latest"
 docker tag "$DOCKER_USERNAME/latex:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/latex:latest"
