@@ -58,7 +58,7 @@ def process_image(image: str, image_path: str):
     print(f"Processing image {image}")
     for tag, path in get_tags(image_path):
         process_image_tag(image, tag, path)
-        if tag == "alpine-latest":
+        if tag == "slim-latest":
             process_image_tag(image, "latest", path)
         if tag.endswith("-latest"):
             process_image_tag(image, tag[0:-(len('latest')+1)], path)

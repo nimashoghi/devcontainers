@@ -1,25 +1,42 @@
-FROM alpine:latest
+FROM debian:buster
+
+# Make debian non-interactive
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Fix locale issues
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes locales \
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # Copy default endpoint specific user settings overrides into container to specify Python path
 COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
 
 # Configure apt and install necessary libraries
-RUN apk add --no-cache alpine-sdk bash ca-certificates curl docker git libgcc libstdc++ musl
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes \
+    apt-transport-https build-essential ca-certificates curl git gnupg2 libssl-dev libffi-dev procps software-properties-common wget
 
 # Install docker and docker-compose
-RUN apk add --no-cache docker libc-dev libffi-dev openssl-dev gcc make py3-pip python3-dev \
-    && pip3 install docker-compose
+RUN curl -fsSL https://get.docker.com | sh \
+    && curl -L https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose
 
 # Install Posh
-COPY ./install-posh-alpine.sh /tmp/install-posh.sh
+COPY ./install-posh-buster.sh /tmp/install-posh.sh
 RUN chmod +x /tmp/install-posh.sh && /tmp/install-posh.sh && rm /tmp/install-posh.sh
 
 # Install LaTeX
-RUN apk add --no-cache biber make texlive-full
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes \
+    texlive-full
 
-# Install other necessary packages
-RUN apk add --no-cache perl-log-dispatch perl-yaml-tiny
-RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ perl-file-homedir
+# Clear apt cache
+RUN apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Adjust max user watches config
 RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
