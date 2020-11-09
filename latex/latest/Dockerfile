@@ -34,6 +34,9 @@ RUN apt-get update \
     && apt-get install --no-install-recommends --yes \
     texlive-full
 
+# Install dependencies for latexindent
+RUN cpan -i Log::Log4perl Log::Dispatch::File YAML::Tiny File::HomeDir Unicode::GCString
+
 # Clear apt cache
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/*
