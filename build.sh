@@ -8,6 +8,12 @@ docker tag "$DOCKER_USERNAME/rust:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/rust:lat
 docker push $DOCKER_USERNAME/rust:latest-$TRAVIS_TAG
 docker push $DOCKER_USERNAME/rust:latest
 
+# cpp
+docker build --rm -f "./cpp/latest/Dockerfile" -t "$DOCKER_USERNAME/cpp:latest-$TRAVIS_TAG" "./cpp/latest"
+docker tag "$DOCKER_USERNAME/cpp:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/cpp:latest"
+docker push $DOCKER_USERNAME/cpp:latest-$TRAVIS_TAG
+docker push $DOCKER_USERNAME/cpp:latest
+
 # react-native
 docker build --rm -f "./react-native/latest/Dockerfile" -t "$DOCKER_USERNAME/react-native:latest-$TRAVIS_TAG" "./react-native/latest"
 docker tag "$DOCKER_USERNAME/react-native:latest-$TRAVIS_TAG" "$DOCKER_USERNAME/react-native:latest"
