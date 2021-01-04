@@ -1,0 +1,9 @@
+{
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true
+    },
+    "python.pythonPath": "/usr/local/bin/python",
+    "python.formatting.provider": "black"
+}

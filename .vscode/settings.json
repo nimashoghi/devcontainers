@@ -1,3 +1,20 @@
 {
-    "docker.defaultRegistryPath": "nimashoghi"
+    "docker.defaultRegistryPath": "nimashoghi",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#976b35",
+        "activityBar.activeBorder": "#5ac595",
+        "activityBar.background": "#976b35",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#5ac595",
+        "activityBarBadge.foreground": "#15202b",
+        "statusBar.background": "#715028",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#976b35",
+        "titleBar.activeBackground": "#715028",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#71502899",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#715028"
 }
