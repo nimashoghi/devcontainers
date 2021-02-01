@@ -33,7 +33,6 @@ RUN pip install --upgrade pip
 
 # Install autopep8, bandit, jupyter, poetry, pylint
 RUN pip install autopep8 jupyter poetry pylint
-COPY ./config.toml /root/.config/pypoetry/config.toml
 COPY ./jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
 
 # Clear apt cache
