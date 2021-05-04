@@ -1,4 +1,4 @@
-FROM reactnativecommunity/react-native-android:2020-5-20
+FROM reactnativecommunity/react-native-android:latest
 
 # Make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
