@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.7.1-cuda11.0-cudnn8-devel
+FROM pytorch/pytorch:1.9.0-cuda11.1-cudnn8-devel
 
 # make debian non-interactive
 ENV DEBIAN_FRONTEND=noninteractive
