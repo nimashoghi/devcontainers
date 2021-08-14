@@ -36,6 +36,7 @@ RUN pip install --pre black
 
 # Install jupyter, poetry, pylint
 RUN pip install jupyter poetry pylint
+COPY ./config.toml /root/.config/pypoetry/config.toml
 COPY ./jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
 
 # Clear apt cache
