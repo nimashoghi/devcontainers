@@ -4,7 +4,8 @@ import os
 import os.path
 from contextlib import contextmanager
 
-NO_PUSH = int(os.environ.get("NO_PUSH", "0"))
+NO_PUSH = bool(int(os.environ.get("NO_PUSH", "0")))
+NO_DELETE = bool(int(os.environ.get("NO_DELETE", "0")))
 
 def execute(command: str, *, with_newline=False):
     with open("./build.sh", "a") as f:
@@ -40,7 +41,7 @@ def get_images(path: str):
 
 def process_image_tag(image: str, tag: str, path: str):
     docker_file_path = os.path.join(path, "Dockerfile")
-    full_image_name = f"$DOCKER_USERNAME/{image}:{tag}-$TRAVIS_TAG"
+    full_image_name = f"$DOCKER_USERNAME/{image}:{tag}-$CURRENT_RELEASE"
     short_image_name = f"$DOCKER_USERNAME/{image}:{tag}"
     execute(
         f'docker build --rm -f "{docker_file_path}" -t "{full_image_name}" "{path}"'
@@ -52,6 +53,11 @@ def process_image_tag(image: str, tag: str, path: str):
         execute(f"docker push {full_image_name}")
         execute(f"docker push {short_image_name}")
 
+    global NO_DELETE
+    if not NO_DELETE:
+        execute(f"docker rmi {full_image_name}")
+        execute(f"docker rmi {short_image_name}")
+        execute("docker system prune --all --volumes --force")
 
 def process_image(image: str, image_path: str):
     execute(f"# {image}")
@@ -82,6 +88,10 @@ def main():
         pass
 
     execute("#!/bin/sh", with_newline=True)
+    execute("""
+# get the current release tag from GITHUB_REF and save it to the CURRENT_RELEASE variable
+CURRENT_RELEASE=$(echo $GITHUB_REF | cut -d'/' -f 3)
+""")
 
     with docker_login("$DOCKER_USERNAME", "$DOCKER_PASSWORD"):
         for image, image_path in get_images("."):
